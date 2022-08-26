@@ -124,15 +124,18 @@ export default defineComponent({
       </div>
     </div>
     <div class="token-search">
-      <input
-        :value="doggieId"
-        class="search-input"
-        type="number"
-        min="0"
-        :max="totalSupply"
-        placeholder="Enter a Token ID"
-        @change="handleChange"
-      />
+      <div class="search-input-wrapper">
+        <input
+          :value="doggieId"
+          class="search-input"
+          type="number"
+          min="0"
+          :max="totalSupply"
+          placeholder="Enter a Token ID"
+          @change="handleChange"
+        />
+      </div>
+
       <div class="group-search-buttons">
         <button class="search-button" @click="getDoggieData">Search</button>
         <button class="random-button" @click="getRandomDoggieData">
@@ -173,7 +176,7 @@ export default defineComponent({
   flex: 1;
 
   @media screen and (max-width: 642px) {
-    min-height: 200vh;
+    min-height: 150vh;
   }
 }
 
@@ -225,6 +228,24 @@ export default defineComponent({
   margin-bottom: 48px;
 }
 
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+
+    width: 20px;
+    height: 100%;
+
+    background-image: url('~@/static/icons/magnifying-glass.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
 .search-input {
   color: rgb(17 24 39);
   background-color: rgb(249 250 251);
@@ -232,7 +253,7 @@ export default defineComponent({
   border-radius: 8px;
   font-size: 16px;
 
-  padding: 12px;
+  padding: 12px 12px 12px 40px;
   width: 100%;
 }
 
