@@ -3,9 +3,8 @@ import { defineComponent, toRefs } from 'vue';
 import { marked } from 'marked';
 import { PropType } from 'vue/types/v3-component-props';
 
-import { DoggieData } from './Main.vue';
-
-const OPENSEA_URL = 'https://opensea.io';
+import { DoggieData } from '~/types/doggie';
+import { OPENSEA_URL } from '~/constants';
 
 export default defineComponent({
   name: 'DoggieProfile',
@@ -19,7 +18,7 @@ export default defineComponent({
     const { doggieData } = toRefs(props);
 
     return {
-      openSeaLink() {
+      getOpenSeaLink() {
         return `${OPENSEA_URL}/${doggieData.value.ownerId}`;
       },
       getFormattedOwnerId() {
@@ -43,7 +42,8 @@ export default defineComponent({
         <div>
           <h3>{{ doggieData.name }}</h3>
           <p class="owner-text">
-            Owned by: <a :href="openSeaLink()">{{ getFormattedOwnerId() }}</a>
+            Owned by:
+            <a :href="getOpenSeaLink()">{{ getFormattedOwnerId() }}</a>
           </p>
         </div>
         <div>
@@ -68,8 +68,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .doggie-profile-container {
   background-color: #121113;
-  padding: 24px;
   border-radius: 16px;
+
+  padding: 24px;
 }
 
 .doggie-info-container {
@@ -84,8 +85,8 @@ export default defineComponent({
   }
 
   h4 {
-    margin: 48px 0 12px;
     font-size: 1.2rem;
+    margin: 48px 0 12px;
 
     @media screen and (max-width: 642px) {
       margin: 24px 0 12px;
@@ -101,9 +102,9 @@ export default defineComponent({
   margin: 12px 0;
 
   a {
-    text-transform: uppercase;
     color: #9061f9;
     text-decoration: none;
+    text-transform: uppercase;
   }
 }
 
@@ -112,44 +113,53 @@ export default defineComponent({
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 12px;
   grid-auto-rows: 1fr;
-  margin-top: 24px;
+
   text-align: center;
+
+  margin-top: 24px;
 }
 
 .attribute-container {
-  padding: 12px;
-  border: 1px solid #111519;
-  border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   background: #2a292a;
+  border: 1px solid #111519;
+  border-radius: 12px;
+
+  padding: 12px;
 }
 
 .attribute-type {
+  color: #ac94fa;
+
   font-size: 0.7rem;
   font-weight: bold;
-  margin-bottom: 8px;
   text-transform: uppercase;
-  color: #ac94fa;
+
+  margin-bottom: 8px;
 }
 
 .attribute-value {
   display: flex;
-  flex: 1;
   align-items: center;
+  flex: 1;
+
   font-size: 0.9rem;
 }
 
 .doggie-image-container {
   width: 320px;
   height: 320px;
+
   margin-right: 42px;
 
   @media screen and (max-width: 642px) {
     width: 100%;
     height: 100%;
+
     margin-right: 0px;
     margin-bottom: 24px;
   }
@@ -160,8 +170,10 @@ export default defineComponent({
 }
 
 .doggie-image {
+  border-radius: 16px;
+
+  aspect-ratio: 1;
   width: 100%;
   height: 100%;
-  border-radius: 16px;
 }
 </style>

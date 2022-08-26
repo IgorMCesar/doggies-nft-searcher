@@ -50,4 +50,6 @@ export default {
     subsets: ['latin'],
     overwriting: true,
   },
+
+  srcDir: 'src/',
 };
