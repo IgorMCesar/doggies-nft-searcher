@@ -1,35 +1,149 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, toRefs } from 'vue';
+import { marked } from 'marked';
+import { PropType } from 'vue/types/v3-component-props';
 
 import { DoggieData } from './Main.vue';
+
+const OPENSEA_URL = 'https://opensea.io';
 
 export default defineComponent({
   name: 'DoggieProfile',
   props: {
     doggieData: {
-      type: Object as () => DoggieData,
+      type: Object as PropType<DoggieData>,
       required: true,
     },
   },
   setup(props) {
-    console.log(props.doggieData);
+    const { doggieData } = toRefs(props);
+
+    return {
+      openSeaLink() {
+        return `${OPENSEA_URL}/${doggieData.value.ownerId}`;
+      },
+      getFormattedOwnerId() {
+        return doggieData.value.ownerId.slice(2, 8);
+      },
+      markdownDescriptionToHtml() {
+        return marked.parse(doggieData.value.description);
+      },
+    };
   },
 });
 </script>
 
 <template>
-  <div>
-    <p>{{ doggieData.name }}</p>
-    <p>{{ doggieData.ownerId }}</p>
-    <p>{{ doggieData.description }}</p>
-    <p>{{ doggieData.imageUrl }}</p>
-    <img :src="doggieData.imageUrl" width="100px" />
-    <div>
-      <p v-for="attribute in doggieData.attributes" :key="attribute.trait_type">
-        {{ attribute.trait_type }}: {{ attribute.value }}
-      </p>
+  <div class="doggie-profile-container">
+    <div class="doggie-info-container">
+      <div class="doggie-image-container">
+        <img :src="doggieData.imageUrl" class="doggie-image" />
+      </div>
+      <div class="doggie-text-container">
+        <div>
+          <h3>{{ doggieData.name }}</h3>
+          <p class="owner-text">
+            Owned by: <a :href="openSeaLink()">{{ getFormattedOwnerId() }}</a>
+          </p>
+        </div>
+        <div>
+          <h4>Description</h4>
+          <div v-html="markdownDescriptionToHtml()"></div>
+        </div>
+      </div>
+    </div>
+    <div class="attributes-grid">
+      <div
+        v-for="attribute in doggieData.attributes"
+        :key="attribute.trait_type"
+        class="attribute-container"
+      >
+        <p class="attribute-type">{{ attribute.trait_type }}</p>
+        <p class="attribute-value">{{ attribute.value }}</p>
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.doggie-profile-container {
+  margin-top: 48px;
+}
+
+.doggie-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  h4 {
+    margin: 48px 0 12px;
+    font-size: 1.2rem;
+  }
+}
+
+.owner-text {
+  margin: 12px 0;
+
+  a {
+    text-transform: uppercase;
+    color: rgb(85 33 181);
+    text-decoration: none;
+  }
+}
+
+.attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 12px;
+  margin-top: 24px;
+  text-align: center;
+}
+
+.attribute-container {
+  padding: 12px;
+  border: 1px solid #111519;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.attribute-type {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.attribute-value {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.doggie-image-container {
+  width: 60%;
+  height: 100%;
+  max-width: 320px;
+  height: 320px;
+  margin-right: 42px;
+}
+
+.doggie-text-container {
+  flex: 1;
+}
+
+.doggie-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+</style>

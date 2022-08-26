@@ -45,6 +45,7 @@ export default {
   googleFonts: {
     families: {
       Inter: [400, 600, 700, 800, 900],
+      UnifrakturMaguntia: [400, 700],
     },
     subsets: ['latin'],
     overwriting: true,

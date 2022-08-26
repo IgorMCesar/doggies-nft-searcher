@@ -2,7 +2,7 @@
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 import axios from 'axios';
-import { reactive, toRefs } from 'vue';
+import { defineComponent, reactive, toRefs } from 'vue';
 import abi from '../contracts/theDoggiesABI.json';
 
 export interface DoggieData {
@@ -36,7 +36,7 @@ const getTotalDoggiesSupply = () => {
   return contract.methods.totalSupply().call();
 };
 
-export default {
+export default defineComponent({
   name: 'MainComponent',
   setup() {
     const state = reactive<State>({
@@ -54,8 +54,6 @@ export default {
     const getDoggieData = async (doggieId: string = state.doggieId) => {
       state.isLoading = true;
 
-      console.log(doggieId);
-
       try {
         const [tokenURI, ownerId] = await Promise.all([
           contract.methods.tokenURI(doggieId).call(),
@@ -70,7 +68,9 @@ export default {
           imageUrl: data.image_url,
           name: data.name,
           description: data.description,
-          attributes: data.attributes,
+          attributes: data.attributes.filter(
+            (attribute: { value: string }) => attribute.value !== ''
+          ),
           iframe: data.iframe,
         };
       } catch (error) {
@@ -97,7 +97,7 @@ export default {
       getRandomDoggieData,
     };
   },
-};
+});
 </script>
 
 <template>
@@ -109,13 +109,13 @@ export default {
       </div>
     </div>
     <div class="token-search">
-      <h4>Token ID</h4>
       <input
         v-model="doggieId"
         class="search-input"
         type="number"
         min="0"
         :max="totalSupply"
+        placeholder="Enter a Token ID"
       />
       <div class="group-search-buttons">
         <button class="search-button" @click="getDoggieData()">Search</button>
@@ -154,10 +154,13 @@ export default {
   margin-top: auto;
 
   h1 {
+    font-family: 'UnifrakturMaguntia';
+    margin-top: 24px;
     font-size: 2.5rem;
     font-weight: bold;
     color: black;
     margin-bottom: 0;
+    letter-spacing: 5px;
   }
 }
 
@@ -176,14 +179,7 @@ export default {
   width: 100%;
   max-width: 400px;
   height: 100%;
-  margin-top: 32px;
-
-  h4 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: black;
-    margin-bottom: 12px;
-  }
+  margin-top: 48px;
 }
 
 .search-input {
