@@ -68,6 +68,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .doggie-profile-container {
   margin-top: 48px;
+  background-color: #121113;
+  padding: 24px;
+  border-radius: 16px;
 }
 
 .doggie-info-container {
@@ -92,7 +95,7 @@ export default defineComponent({
 
   a {
     text-transform: uppercase;
-    color: rgb(85 33 181);
+    color: #9061f9;
     text-decoration: none;
   }
 }
@@ -101,6 +104,7 @@ export default defineComponent({
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 12px;
+  grid-auto-rows: 1fr;
   margin-top: 24px;
   text-align: center;
 }
@@ -108,31 +112,31 @@ export default defineComponent({
 .attribute-container {
   padding: 12px;
   border: 1px solid #111519;
-  border-radius: 4px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #2a292a;
 }
 
 .attribute-type {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: bold;
   margin-bottom: 8px;
   text-transform: uppercase;
+  color: #ac94fa;
 }
 
 .attribute-value {
   display: flex;
   flex: 1;
   align-items: center;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .doggie-image-container {
-  width: 60%;
-  height: 100%;
-  max-width: 320px;
+  width: 320px;
   height: 320px;
   margin-right: 42px;
 }

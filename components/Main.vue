@@ -124,7 +124,12 @@ export default defineComponent({
         </button>
       </div>
     </div>
-    <DoggieProfile v-if="doggieData" :doggie-data="doggieData" />
+    <Transition name="bounce">
+      <DoggieProfile
+        v-if="doggieData && !isLoading"
+        :doggie-data="doggieData"
+      />
+    </Transition>
   </div>
 </template>
 
@@ -158,7 +163,6 @@ export default defineComponent({
     margin-top: 24px;
     font-size: 2.5rem;
     font-weight: bold;
-    color: black;
     margin-bottom: 0;
     letter-spacing: 5px;
   }
@@ -207,7 +211,7 @@ export default defineComponent({
   color: rgb(255 255 255);
   background-color: rgb(108 43 217);
   padding: 12px;
-  border: 1px solid rgb(209 213 219);
+  border: unset;
   border-radius: 8px;
   width: 100%;
   font-size: 16px;
@@ -221,19 +225,37 @@ export default defineComponent({
 .random-button {
   padding: 8px 16px;
   color: rgb(255 255 255);
-  background-color: #1f2937;
+  background-color: #66636a;
   padding: 8px;
-  border: 1px solid rgb(209 213 219);
+  border: unset;
   border-radius: 8px;
   cursor: pointer;
   margin-left: 8px;
 
   &:hover {
-    background-color: #111827;
+    background-color: #363538;
   }
 }
 
 .doggie-wrapper {
   flex-grow: 1;
+}
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>
