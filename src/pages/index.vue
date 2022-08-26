@@ -40,6 +40,12 @@ export default defineComponent({
     const getDoggieData = async () => {
       // Don't re-search the current displayed doggie.
       if (state.doggieData?.id === state.doggieId) {
+        state.error = 'Search for a different doggie.';
+        return;
+      }
+
+      if (!state.doggieId) {
+        state.error = 'Enter a doggie id to search.';
         return;
       }
 
@@ -137,8 +143,18 @@ export default defineComponent({
       </div>
 
       <div class="group-search-buttons">
-        <button class="search-button" @click="getDoggieData">Search</button>
-        <button class="random-button" @click="getRandomDoggieData">
+        <button
+          class="search-button"
+          :disabled="isLoading"
+          @click="getDoggieData"
+        >
+          Search
+        </button>
+        <button
+          class="random-button"
+          :disabled="isLoading"
+          @click="getRandomDoggieData"
+        >
           <img
             src="~/static/icons/dice.svg"
             alt="A pair of dices"
@@ -147,6 +163,7 @@ export default defineComponent({
           />
         </button>
       </div>
+      <div v-if="error" class="error-text">{{ error }}</div>
     </div>
     <Transition name="bounce">
       <div v-if="doggieData" class="profile-container">
@@ -288,7 +305,6 @@ export default defineComponent({
   background-color: #66636a;
   border-radius: 8px;
   border: unset;
-  color: rgb(255 255 255);
   cursor: pointer;
 
   padding: 8px;
@@ -297,6 +313,16 @@ export default defineComponent({
   &:hover {
     background-color: #363538;
   }
+}
+
+.error-text {
+  width: 100%;
+  margin-top: 16px;
+
+  color: #fca5a5;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .doggie-wrapper {
