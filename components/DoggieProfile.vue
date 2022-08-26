@@ -67,7 +67,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .doggie-profile-container {
-  margin-top: 48px;
   background-color: #121113;
   padding: 24px;
   border-radius: 16px;
@@ -87,6 +86,14 @@ export default defineComponent({
   h4 {
     margin: 48px 0 12px;
     font-size: 1.2rem;
+
+    @media screen and (max-width: 642px) {
+      margin: 24px 0 12px;
+    }
+  }
+
+  @media screen and (max-width: 642px) {
+    flex-direction: column;
   }
 }
 
@@ -139,6 +146,13 @@ export default defineComponent({
   width: 320px;
   height: 320px;
   margin-right: 42px;
+
+  @media screen and (max-width: 642px) {
+    width: 100%;
+    height: 100%;
+    margin-right: 0px;
+    margin-bottom: 24px;
+  }
 }
 
 .doggie-text-container {

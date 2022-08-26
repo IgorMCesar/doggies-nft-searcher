@@ -52,6 +52,10 @@ export default defineComponent({
     });
 
     const getDoggieData = async (doggieId: string = state.doggieId) => {
+      if (state.doggieData?.id === doggieId) {
+        return;
+      }
+
       state.isLoading = true;
 
       try {
@@ -125,10 +129,11 @@ export default defineComponent({
       </div>
     </div>
     <Transition name="bounce">
-      <DoggieProfile
-        v-if="doggieData && !isLoading"
-        :doggie-data="doggieData"
-      />
+      <div v-if="doggieData" class="profile-container">
+        <Transition name="bounce">
+          <DoggieProfile v-if="!isLoading" :doggie-data="doggieData" />
+        </Transition>
+      </div>
     </Transition>
   </div>
 </template>
@@ -139,15 +144,24 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  min-height: 100vh;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+.profile-container {
+  flex: 1;
 }
 
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-height: 490px;
-  height: calc(100% - 560px);
-  min-height: 380px;
 }
 
 .header-content {
@@ -165,6 +179,7 @@ export default defineComponent({
     font-weight: bold;
     margin-bottom: 0;
     letter-spacing: 5px;
+    text-align: center;
   }
 }
 
@@ -184,6 +199,7 @@ export default defineComponent({
   max-width: 400px;
   height: 100%;
   margin-top: 48px;
+  margin-bottom: 48px;
 }
 
 .search-input {
@@ -252,7 +268,7 @@ export default defineComponent({
     transform: scale(0);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   100% {
     transform: scale(1);
