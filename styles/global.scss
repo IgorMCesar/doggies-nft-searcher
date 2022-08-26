@@ -1,0 +1,19 @@
+html {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  min-width: 400px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
