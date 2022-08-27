@@ -94,12 +94,17 @@ export default defineComponent({
       const target = e.currentTarget as HTMLInputElement;
       const value = Number(target.value);
 
-      if (Number.isNaN(value)) {
+      // Prevent empty value to be converted to 0.
+      if (target.value === '') {
+        state.doggieId = '';
         return;
       }
 
+      // Ensure the value is in the range of 0 to totalSupply - 1.
       if (value > state.totalSupply - 1) {
         state.doggieId = String(state.totalSupply - 1);
+      } else if (value < 0) {
+        state.doggieId = String(0);
       } else {
         state.doggieId = String(value);
       }
