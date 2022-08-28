@@ -55,7 +55,7 @@ export default defineComponent({
       v-if="isLoading && loadingSpinner"
       class="button-loading-spinner"
       src="~/static/icons/spinner.svg"
-      alt="A pair of dices"
+      alt="A loading spinner"
       width="24px"
       height="24px"
     />
