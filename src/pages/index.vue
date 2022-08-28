@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs } from 'vue';
 import DoggieProfile from '@/components/DoggieProfile.vue';
+import Button from '@/components/atoms/Button.vue';
 import contract from '~/contracts/theDoggiesContract';
 import { DoggieData } from '~/types/doggie';
 
@@ -16,6 +17,7 @@ export default defineComponent({
   name: 'IndexPage',
   components: {
     DoggieProfile,
+    Button,
   },
   setup() {
     const state = reactive<IState>({
@@ -147,19 +149,21 @@ export default defineComponent({
       </div>
 
       <div class="group-search-buttons">
-        <button
+        <Button
           search-button
-          class="search-button"
-          :disabled="isLoading"
-          @click="getDoggieData"
+          :on-click="getDoggieData"
+          :is-loading="isLoading"
+          full-width
         >
           Search
-        </button>
-        <button
+        </Button>
+        <Button
           random-button
-          class="random-button"
-          :disabled="isLoading"
-          @click="getRandomDoggieData"
+          :on-click="getRandomDoggieData"
+          :is-loading="isLoading"
+          icon-button
+          color="secondary"
+          style="margin-left: 8px"
         >
           <img
             src="~/static/icons/dice.svg"
@@ -167,7 +171,7 @@ export default defineComponent({
             width="24px"
             height="24px"
           />
-        </button>
+        </Button>
       </div>
       <div v-if="error" error-text class="error-text">{{ error }}</div>
     </div>
@@ -293,38 +297,6 @@ export default defineComponent({
   width: 100%;
   margin-top: 12px;
 }
-
-.search-button {
-  background-color: rgb(108 43 217);
-  border-radius: 8px;
-  border: unset;
-  color: rgb(255 255 255);
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-
-  padding: 12px;
-  width: 100%;
-
-  &:hover {
-    background-color: rgb(85 33 181);
-  }
-}
-
-.random-button {
-  background-color: #66636a;
-  border-radius: 8px;
-  border: unset;
-  cursor: pointer;
-
-  padding: 8px;
-  margin-left: 8px;
-
-  &:hover {
-    background-color: #363538;
-  }
-}
-
 .error-text {
   width: 100%;
   margin-top: 16px;
