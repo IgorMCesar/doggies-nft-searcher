@@ -34,32 +34,35 @@ export default defineComponent({
 
 <template>
   <div class="doggie-profile-container">
-    <div class="doggie-info-container">
-      <div class="doggie-image-container">
-        <img :src="doggieData.imageUrl" class="doggie-image" />
-      </div>
-      <div class="doggie-text-container">
-        <div>
-          <h3>{{ doggieData.name }}</h3>
-          <p class="owner-text">
-            Owned by:
-            <a :href="getOpenSeaLink()">{{ getFormattedOwnerId() }}</a>
-          </p>
+    <div class="gradient-blur" />
+    <div class="doggie-profile-card">
+      <div class="doggie-info-container">
+        <div class="doggie-image-container">
+          <img :src="doggieData.imageUrl" class="doggie-image" />
         </div>
-        <div>
-          <h4>Description</h4>
-          <div v-html="markdownDescriptionToHtml()"></div>
+        <div class="doggie-text-container">
+          <div>
+            <h3>{{ doggieData.name }}</h3>
+            <p class="owner-text">
+              Owned by:
+              <a :href="getOpenSeaLink()">{{ getFormattedOwnerId() }}</a>
+            </p>
+          </div>
+          <div>
+            <h4>Description</h4>
+            <div v-html="markdownDescriptionToHtml()"></div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="attributes-grid">
-      <div
-        v-for="attribute in doggieData.attributes"
-        :key="attribute.trait_type"
-        class="attribute-container"
-      >
-        <p class="attribute-type">{{ attribute.trait_type }}</p>
-        <p class="attribute-value">{{ attribute.value }}</p>
+      <div class="attributes-grid">
+        <div
+          v-for="attribute in doggieData.attributes"
+          :key="attribute.trait_type"
+          class="attribute-container"
+        >
+          <p class="attribute-type">{{ attribute.trait_type }}</p>
+          <p class="attribute-value">{{ attribute.value }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -67,6 +70,21 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .doggie-profile-container {
+  position: relative;
+}
+
+.gradient-blur {
+  position: absolute;
+  z-index: -1;
+
+  width: 100%;
+  height: 100%;
+
+  filter: blur(18px);
+  background-image: linear-gradient(to bottom, #a855f7, #6366f1);
+}
+
+.doggie-profile-card {
   background-color: #121113;
   border-radius: 16px;
 

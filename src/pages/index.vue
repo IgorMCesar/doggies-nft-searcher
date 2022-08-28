@@ -257,7 +257,7 @@ export default defineComponent({
   height: 100%;
 
   margin-top: 48px;
-  margin-bottom: 48px;
+  margin-bottom: 64px;
 }
 
 .search-input-wrapper {
