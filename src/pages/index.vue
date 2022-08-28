@@ -1,10 +1,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs } from 'vue';
-import Web3 from 'web3';
-import abi from '../contracts/theDoggiesABI';
-
+import DoggieProfile from '@/components/DoggieProfile.vue';
+import contract from '~/contracts/theDoggiesContract';
 import { DoggieData } from '~/types/doggie';
-import { ETH_PROVIDER_URL, TOKEN_ADDRESS } from '~/constants';
 
 interface IState {
   totalSupply: number;
@@ -14,11 +12,11 @@ interface IState {
   error: unknown | null;
 }
 
-const web3 = new Web3(ETH_PROVIDER_URL);
-const contract = new web3.eth.Contract(abi, TOKEN_ADDRESS);
-
 export default defineComponent({
   name: 'IndexPage',
+  components: {
+    DoggieProfile,
+  },
   setup() {
     const state = reactive<IState>({
       // Total supply will never be lower than 10000.
@@ -70,7 +68,7 @@ export default defineComponent({
           attributes: data.attributes.filter(
             (attribute: { value: string }) => attribute.value !== ''
           ),
-          iframe: data.iframe,
+          iframeUrl: data.iframe_url,
         };
       } catch (error) {
         state.error = error;
@@ -137,6 +135,7 @@ export default defineComponent({
     <div class="token-search">
       <div class="search-input-wrapper">
         <input
+          search-input
           :value="doggieId"
           class="search-input"
           type="number"
@@ -149,6 +148,7 @@ export default defineComponent({
 
       <div class="group-search-buttons">
         <button
+          search-button
           class="search-button"
           :disabled="isLoading"
           @click="getDoggieData"
@@ -156,6 +156,7 @@ export default defineComponent({
           Search
         </button>
         <button
+          random-button
           class="random-button"
           :disabled="isLoading"
           @click="getRandomDoggieData"
@@ -168,12 +169,16 @@ export default defineComponent({
           />
         </button>
       </div>
-      <div v-if="error" class="error-text">{{ error }}</div>
+      <div v-if="error" error-text class="error-text">{{ error }}</div>
     </div>
     <Transition name="bounce">
       <div v-if="doggieData" class="profile-container">
         <Transition name="bounce">
-          <DoggieProfile v-if="!isLoading" :doggie-data="doggieData" />
+          <DoggieProfile
+            v-if="!isLoading"
+            :doggie-data="doggieData"
+            doggie-profile
+          />
         </Transition>
       </div>
     </Transition>

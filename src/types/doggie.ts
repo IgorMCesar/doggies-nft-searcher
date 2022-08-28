@@ -8,5 +8,5 @@ export interface DoggieData {
     trait_type: string;
     value: string;
   }[];
-  iframe: string;
+  iframeUrl: string;
 }

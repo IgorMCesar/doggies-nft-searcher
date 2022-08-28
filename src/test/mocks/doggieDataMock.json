@@ -1,0 +1,50 @@
+{
+  "id": "0",
+  "ownerId": "0x123",
+  "imageUrl": "https://contracts.sandbox.game/snoopdogg/0.jpg",
+  "name": "Doggy #0000",
+  "description": "**Doggy #0000**\n\nHigh-flying, dapper Super Snoop. 'Makes you feel the way you need to feel'.\n\n⚡️ Learn more about The Sandbox and create your account today: [https://www.sandbox.game](https://www.sandbox.game) ⚡️",
+  "attributes": [
+    {
+      "trait_type": "Hair",
+      "value": "Dogg"
+    },
+    {
+      "trait_type": "Head",
+      "value": "Dogg"
+    },
+    {
+      "trait_type": "Left Hand Accessory",
+      "value": "Golden Ring"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Dogg"
+    },
+    {
+      "trait_type": "Pants",
+      "value": "Bermuda Shorts Navy"
+    },
+    {
+      "trait_type": "Shoes",
+      "value": "White Orange Sneakers"
+    },
+    {
+      "trait_type": "Upper Body Clothing",
+      "value": "Short Sleeve Polo"
+    },
+    {
+      "trait_type": "Type",
+      "value": "Dogg"
+    },
+    {
+      "trait_type": "Mouth",
+      "value": "Dogg"
+    },
+    {
+      "trait_type": "Body Accessory",
+      "value": "SAND chain"
+    }
+  ],
+  "iframeUrl": "https://www.sandbox.game/model-viewer-light/?assetId=ff57769c-464e-4d91-952e-17e745c39ed2"
+}
