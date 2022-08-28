@@ -31,6 +31,11 @@ export default defineComponent({
       required: false,
       default: false,
     },
+    loadingSpinner: {
+      type: Boolean as PropType<boolean>,
+      required: false,
+      default: false,
+    },
   },
 });
 </script>
@@ -46,12 +51,25 @@ export default defineComponent({
     :disabled="isLoading"
     @click="onClick"
   >
+    <img
+      v-if="isLoading && loadingSpinner"
+      class="button-loading-spinner"
+      src="~/static/icons/spinner.svg"
+      alt="A pair of dices"
+      width="24px"
+      height="24px"
+    />
     <slot />
   </button>
 </template>
 
 <style lang="scss" scoped>
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+
   border-radius: 8px;
   border: unset;
   color: rgb(255 255 255);
@@ -60,6 +78,11 @@ export default defineComponent({
   font-weight: 500;
 
   padding: 12px;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 }
 
 .button-full-width {
@@ -81,6 +104,10 @@ export default defineComponent({
 }
 
 .icon-button {
-  padding: 8px;
+  padding: 10px;
+}
+
+.button-loading-spinner {
+  margin-right: 12px;
 }
 </style>

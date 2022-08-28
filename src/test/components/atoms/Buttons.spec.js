@@ -25,6 +25,17 @@ const customWrapper = mount(Button, {
   },
 });
 
+const customWrapper2 = mount(Button, {
+  propsData: {
+    onClick: () => {},
+    isLoading: true,
+    loadingSpinner: true,
+  },
+  slots: {
+    default: 'Button',
+  },
+});
+
 describe('Button', () => {
   it('renders', () => {
     expect(defaultWrapper.vm).toBeTruthy();
@@ -52,6 +63,11 @@ describe('Customize Button', () => {
     expect(customWrapper.classes('button-full-width')).toBe(true);
     expect(customWrapper.classes('icon-button')).toBe(true);
 
+    expect(customWrapper.find('.button-loading-spinner').exists()).toBe(false);
     expect(customWrapper.attributes('disabled')).toBe('disabled');
+  });
+
+  it('renders a spinner when isLoading and loadingSpinner are true', () => {
+    expect(customWrapper2.find('.button-loading-spinner').exists()).toBe(true);
   });
 });

@@ -154,6 +154,7 @@ export default defineComponent({
           :on-click="getDoggieData"
           :is-loading="isLoading"
           full-width
+          loading-spinner
         >
           Search
         </Button>
