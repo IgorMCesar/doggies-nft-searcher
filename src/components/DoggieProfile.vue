@@ -2,6 +2,7 @@
 import { defineComponent, toRefs } from 'vue';
 import { marked } from 'marked';
 import { PropType } from 'vue/types/v3-component-props';
+import DOMPurify from 'isomorphic-dompurify';
 
 import { DoggieData } from '~/types/doggie';
 import { OPENSEA_URL } from '~/constants';
@@ -25,7 +26,9 @@ export default defineComponent({
         return doggieData.value.ownerId.slice(2, 8);
       },
       markdownDescriptionToHtml() {
-        return marked.parse(doggieData.value.description);
+        const html = marked(doggieData.value.description);
+        const sanitizedHtml = DOMPurify.sanitize(html);
+        return sanitizedHtml;
       },
     };
   },
@@ -45,12 +48,17 @@ export default defineComponent({
             <h3>{{ doggieData.name }}</h3>
             <p class="owner-text">
               Owned by:
-              <a :href="getOpenSeaLink()">{{ getFormattedOwnerId() }}</a>
+              <a :href="getOpenSeaLink()" target="_blank">{{
+                getFormattedOwnerId()
+              }}</a>
             </p>
           </div>
           <div>
             <h4>Description</h4>
-            <div v-html="markdownDescriptionToHtml()"></div>
+            <div
+              class="description-markdown-container__doggie-profile"
+              v-html="markdownDescriptionToHtml()"
+            />
           </div>
         </div>
       </div>
@@ -195,3 +203,16 @@ export default defineComponent({
   height: 100%;
 }
 </style>
+
+<styled lang="scss">
+.description-markdown-container__doggie-profile {
+  p {
+    color: #94a3b8;
+    text-decoration: none;
+  }
+  a {
+    color: #9061f9;
+    text-decoration: none;
+  }
+}
+</styled>
