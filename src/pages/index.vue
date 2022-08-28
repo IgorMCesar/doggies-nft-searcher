@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, onMounted, reactive, toRefs } from 'vue';
-import DoggieProfile from '@/components/DoggieProfile.vue';
+import DoggieProfile from '~/components/molecules/DoggieProfile.vue';
 import Button from '@/components/atoms/Button.vue';
 import contract from '~/contracts/theDoggiesContract';
 import { DoggieData } from '~/types/doggie';
@@ -136,6 +136,7 @@ export default defineComponent({
     </div>
     <div class="token-search">
       <div class="search-input-wrapper">
+        <!-- Would break the input down into a new atom, but it's only used once -->
         <input
           search-input
           :value="doggieId"

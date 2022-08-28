@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
-import doggieDataMock from '../mocks/doggieDataMock.json';
-import DoggieProfile from '@/components/DoggieProfile.vue';
+import doggieDataMock from '../../mocks/doggieDataMock.json';
+import DoggieProfile from '~/components/molecules/DoggieProfile.vue';
 
 describe('DoggieProfile', () => {
   it('renders', () => {
