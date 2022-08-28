@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'the-sandbox-challenge',
+    title: 'The Doggies Explorer',
     htmlAttrs: {
       lang: 'en',
     },

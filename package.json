@@ -15,12 +15,6 @@
     "prepare": "husky install",
     "test": "jest"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "CI=true npm run test"
-    }
-  },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --cache",
     "*.{css,scss,sass,html,vue}": "stylelint",
