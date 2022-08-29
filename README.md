@@ -1,4 +1,4 @@
-# the-sandbox-challenge
+# doggies-nft-searcher
 
 ## Build Setup
 
